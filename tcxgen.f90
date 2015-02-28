@@ -13,20 +13,45 @@
 !                                                                          !
 !**************************************************************************!
 PROGRAM TCXGEN
+IMPLICIT NONE
+!
+integer date_start
 
-get input
--average speed
--average heart rate
+!
+!...read input
+!
+call get_input(date_start,t_start,t_total,avg_HR)
 
 
-write main details
 
 
 
-do while
-   loop over time points
-   use pseudo-random numbers to add noise
+!get input
+!-average speed
+!-average heart rate
+
+
+!write main details
+
+
+
+!do while
+!   loop over time points
+!   use pseudo-random numbers to add noise
    
    
+subroutine get_input
+
+!date
+!start time
+
+!activity
+!total time
+!distance meters
+!avg/max HR
+!altitude
+end subroutine get_input
+
+
 
 END

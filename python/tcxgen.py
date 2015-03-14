@@ -21,21 +21,14 @@ fname = 't'
 
 # Workout Duration
 duration = raw_input('Enter duration [hh:mm:ss]: ')
-
-duration = duration.split(':')
-
-print(duration)
+duration = duration.split(':') # split the string 
+# Create individual components for each part of duration
 duration_hour   = float(duration[0])
-print(duration_hour)
 duration_minute = float(duration[1])
-print(duration_minute)
 duration_second = float(duration[2])
-print(duration_second)
 
-
+# Sum the components of duration for total seconds
 duration_second = duration_hour * HR_TO_SEC + duration_minute * MIN_TO_SEC + duration_second
-
-print(duration_second)
 
 # Workout Distance
 distance = raw_input('Enter distance [mi]: ')
@@ -66,9 +59,9 @@ f.write('  <Activities>\n')
 f.write('    <Activity Sport="Biking">\n')
 f.write('      <Id>2015-02-25T22:33:51Z</Id>\n')
 f.write('      <Lap StartTime="2015-02-25T22:33:51Z">\n')
-f.write('        <TotalTimeSeconds>1590.6140000</TotalTimeSeconds>\n')
+f.write('        <TotalTimeSeconds>{0:.7f}</TotalTimeSeconds>\n'.format(duration_second))
+#f.write('        <TotalTimeSeconds>1590.6140000</TotalTimeSeconds>\n')
 f.write('        <DistanceMeters>{0:.7f}</DistanceMeters>\n'.format(distance_meter))
-#f.write('        <DistanceMeters>0.0000000</DistanceMeters>\n')
 f.write('        <Calories>335</Calories>\n')
 f.write('        <AverageHeartRateBpm>\n')
 f.write('          <Value>154</Value>\n')

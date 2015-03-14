@@ -5,23 +5,37 @@ from __future__ import print_function
 #... Constants
 #
 MI_TO_METER = 1609.34
-
+HR_TO_SEC   = 3600.
+MIN_TO_SEC  = 60.
 
 # 
 #...Query user for filename
 #
-fname = raw_input('Enter a file name to generate: ')
-print("\nFilename is: ",fname,'.tcx',sep='')
-
+#fname = raw_input('Enter a file name to generate: ')
+#print("\nFilename is: ",fname,'.tcx',sep='')
+fname = 't'
 #
 #...Query user for file specifics
 #
 #st_time  = raw_input('Enter Start time using 24 hr time,\n [YYYY-MM-DD-hh:mm:ss]: ')
 
 # Workout Duration
-#duration = raw_input('Enter duration [hh:mm:ss]: ')
+duration = raw_input('Enter duration [hh:mm:ss]: ')
+
+duration = duration.split(':')
+
+print(duration)
+duration_hour   = float(duration[0])
+print(duration_hour)
+duration_minute = float(duration[1])
+print(duration_minute)
+duration_second = float(duration[2])
+print(duration_second)
 
 
+duration_second = duration_hour * HR_TO_SEC + duration_minute * MIN_TO_SEC + duration_second
+
+print(duration_second)
 
 # Workout Distance
 distance = raw_input('Enter distance [mi]: ')

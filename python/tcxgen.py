@@ -1,25 +1,40 @@
 from __future__ import print_function
 
 
+#
+#... Constants
+#
+MI_TO_METER = 1609.34
+
+
 # 
 #...Query user for filename
 #
 fname = raw_input('Enter a file name to generate: ')
-print("Filename is: ",fname,'.tcx',sep='')
+print("\nFilename is: ",fname,'.tcx',sep='')
 
 #
 #...Query user for file specifics
 #
 #st_time  = raw_input('Enter Start time using 24 hr time,\n [YYYY-MM-DD-hh:mm:ss]: ')
+
+# Workout Duration
 #duration = raw_input('Enter duration [hh:mm:ss]: ')
-#distance = raw_input('Enter distance [mi]: ')
+
+
+
+# Workout Distance
+distance = raw_input('Enter distance [mi]: ')
+distance = float(distance) # convert string (from raw_input) to float
 
 
 ##
 #
-#...Convert inputs to the format for 
+#...Convert inputs to the format necessary for *.tcx files
 #
 ##
+distance_meter = distance * MI_TO_METER
+
 
 # concatenate file name and extension
 exten = '.tcx'
@@ -38,7 +53,8 @@ f.write('    <Activity Sport="Biking">\n')
 f.write('      <Id>2015-02-25T22:33:51Z</Id>\n')
 f.write('      <Lap StartTime="2015-02-25T22:33:51Z">\n')
 f.write('        <TotalTimeSeconds>1590.6140000</TotalTimeSeconds>\n')
-f.write('        <DistanceMeters>0.0000000</DistanceMeters>\n')
+f.write('        <DistanceMeters>{0:.7f}</DistanceMeters>\n'.format(distance_meter))
+#f.write('        <DistanceMeters>0.0000000</DistanceMeters>\n')
 f.write('        <Calories>335</Calories>\n')
 f.write('        <AverageHeartRateBpm>\n')
 f.write('          <Value>154</Value>\n')

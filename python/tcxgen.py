@@ -14,7 +14,13 @@ fname = fname + exten
 f = open(fname,'w')
 
 
+#
+#...Write the header information
+#
+f.write('<?xml version="1.0" encoding="UTF-8" standalone="no" ?>\n')
 
-f.write('Test\n')
+
+
+
 
 f.close()

@@ -2,10 +2,24 @@ from __future__ import print_function
 
 
 # 
-# Query user for filename
+#...Query user for filename
 #
 fname = raw_input('Enter a file name to generate: ')
 print("Filename is: ",fname,'.tcx',sep='')
+
+#
+#...Query user for file specifics
+#
+#st_time  = raw_input('Enter Start time using 24 hr time,\n [YYYY-MM-DD-hh:mm:ss]: ')
+#duration = raw_input('Enter duration [hh:mm:ss]: ')
+#distance = raw_input('Enter distance [mi]: ')
+
+
+##
+#
+#...Convert inputs to the format for 
+#
+##
 
 # concatenate file name and extension
 exten = '.tcx'

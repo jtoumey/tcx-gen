@@ -17,7 +17,12 @@ fname = 't'
 #
 #...Query user for file specifics
 #
-#st_time  = raw_input('Enter Start time using 24 hr time,\n [YYYY-MM-DD-hh:mm:ss]: ')
+
+st_time = raw_input('Enter Start time using 24 hr time,\n [YYYY-MM-DD-hh:mm:ss]: ')
+st_time = st_time.split('-')
+#st_spl  = st_time.rfind('-')
+
+print(st_time)
 
 # Workout Duration
 duration = raw_input('Enter duration [hh:mm:ss]: ')
@@ -31,7 +36,7 @@ duration_second = float(duration[2])
 duration_second = duration_hour * HR_TO_SEC + duration_minute * MIN_TO_SEC + duration_second
 
 # Workout Distance
-distance = raw_input('Enter distance [mi]: ')
+distance = raw_input('Enter distance [mi]      : ')
 distance = float(distance) # convert string (from raw_input) to float
 
 
@@ -60,7 +65,6 @@ f.write('    <Activity Sport="Biking">\n')
 f.write('      <Id>2015-02-25T22:33:51Z</Id>\n')
 f.write('      <Lap StartTime="2015-02-25T22:33:51Z">\n')
 f.write('        <TotalTimeSeconds>{0:.7f}</TotalTimeSeconds>\n'.format(duration_second))
-#f.write('        <TotalTimeSeconds>1590.6140000</TotalTimeSeconds>\n')
 f.write('        <DistanceMeters>{0:.7f}</DistanceMeters>\n'.format(distance_meter))
 f.write('        <Calories>335</Calories>\n')
 f.write('        <AverageHeartRateBpm>\n')

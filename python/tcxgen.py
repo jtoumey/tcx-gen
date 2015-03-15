@@ -1,5 +1,6 @@
 from __future__ import print_function
-
+from math import *
+## Function for calculating calorie expenditure from duration and avg HR
 
 def calorie_calc(hr_avg,duration_second):
     #
@@ -11,7 +12,7 @@ def calorie_calc(hr_avg,duration_second):
     #
     calories = ELF*(66. + (13.7*WGHT) + (5*HGHT) - (6.8*AGE))
     #
-    return calories
+    return int(floor(calories))
 
 
 #
@@ -41,7 +42,7 @@ st_time = st_time[st_spl+1:]
 
 # Workout Duration
 #duration = raw_input('Enter duration [hh:mm:ss]: ')
-duration = '03:45:12'
+duration = '00:00:12'
 duration = duration.split(':') # split the string 
 # Create individual components for each part of duration
 duration_hour   = float(duration[0])
@@ -109,15 +110,23 @@ f.write('          <Value>{0}</Value>\n'.format(hr_max))
 f.write('        </MaximumHeartRateBpm>\n')
 f.write('        <Intensity>Active</Intensity>\n')
 f.write('        <TriggerMethod>Manual</TriggerMethod>\n')
-#        <Track>
-#          <Trackpoint>
-#            <Time>2015-02-25T22:33:51Z</Time>
-#            <AltitudeMeters>272.2000000</AltitudeMeters>
-#            <HeartRateBpm>
-#              <Value>94</Value>
-#            </HeartRateBpm>
-#          </Trackpoint>
 
+## Begin track points
+# Initial track statement
+f.write('        <Track>\n')
+
+# Track point loop 
+for ii in range(0,int(duration_second)):
+    f.write('          <Trackpoint>\n')
+    f.write('            <Time>{0}T{1}Z</Time>\n'.format(st_date,int(st_time) + ii))
+    f.write('            <AltitudeMeters>272.2000000</AltitudeMeters>\n')
+    f.write('            <HeartRateBpm>\n')
+    f.write('              <Value>94</Value>\n')
+    f.write('            </HeartRateBpm>\n')
+    f.write('          </Trackpoint>\n')
+
+# End track point data
+f.write('        </Track>\n')
 
 
 f.close()

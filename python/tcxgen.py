@@ -14,6 +14,27 @@ def calorie_calc(hr_avg,duration_second):
     #
     return int(floor(calories))
 
+def increment_time(st_time):
+    
+    st_time = st_time.split(':')
+    st_time = map(int, st_time)
+    
+    if st_time[2] < 59:
+        st_time[2] = st_time[2] + 1
+        
+    else:
+        st_time[2] = 0
+        
+        if st_time[1] < 59:
+            st_time[1] = st_time[1] + 1
+        else:
+            st_time[1] = 0
+            st_time[0] = st_time[0] + 1
+    
+    st_time = map(str, st_time)
+    current_time = ':'.join(st_time)
+    
+    return current_time
 
 #
 #... Constants
@@ -42,7 +63,7 @@ st_time = st_time[st_spl+1:]
 
 # Workout Duration
 #duration = raw_input('Enter duration [hh:mm:ss]: ')
-duration = '00:00:12'
+duration = '00:01:12'
 duration = duration.split(':') # split the string 
 # Create individual components for each part of duration
 duration_hour   = float(duration[0])
@@ -50,7 +71,7 @@ duration_minute = float(duration[1])
 duration_second = float(duration[2])
 
 # Sum the components of duration for total seconds
-duration_second = duration_hour * HR_TO_SEC + duration_minute * MIN_TO_SEC + duration_second
+duration_second = duration_hour*HR_TO_SEC + duration_minute*MIN_TO_SEC + duration_second
 
 # Workout Distance
 #distance = raw_input('Enter distance [mi]      : ')
@@ -63,7 +84,7 @@ distance = float(distance) # convert string (from raw_input) to float
 #...Convert inputs to the format necessary for *.tcx files
 #
 ##
-distance_meter = distance * MI_TO_METER
+distance_meter = distance*MI_TO_METER
 
 
 # calories
@@ -117,8 +138,11 @@ f.write('        <Track>\n')
 
 # Track point loop 
 for ii in range(0,int(duration_second)):
+    # Increment the time
+    st_time = increment_time(st_time)
+    # Write the information
     f.write('          <Trackpoint>\n')
-    f.write('            <Time>{0}T{1}Z</Time>\n'.format(st_date,int(st_time) + ii))
+    f.write('            <Time>{0}T{1}Z</Time>\n'.format(st_date,st_time))
     f.write('            <AltitudeMeters>272.2000000</AltitudeMeters>\n')
     f.write('            <HeartRateBpm>\n')
     f.write('              <Value>94</Value>\n')

@@ -10,7 +10,9 @@ def calorie_calc(hr_avg,duration_second):
     duration_minute = duration_second/60.
     ELF = 1.725
     #
-    calories = ELF*(66. + (13.7*WGHT) + (5*HGHT) - (6.8*AGE))
+    calories = ((AGE*0.2017) + (WGHT*0.1988) + (hr_avg*0.6309) - 55.0969)*duration_minute/4.184
+    # daily
+    #calories = ELF*(66. + (13.7*WGHT) + (5*HGHT) - (6.8*AGE))
     #
     return int(floor(calories))
 

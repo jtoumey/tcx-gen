@@ -32,6 +32,8 @@ def increment_time(st_time):
             st_time[0] = st_time[0] + 1
     
     st_time = map(str, st_time)
+
+    st_time[:] = [i.rjust(2,'0') for i in st_time]
     current_time = ':'.join(st_time)
     
     return current_time

@@ -1,6 +1,14 @@
 from __future__ import print_function
 
 
+def calorie_calc():
+    
+    calories = 1240.
+    
+    
+    return calories
+
+
 #
 #... Constants
 #
@@ -52,6 +60,23 @@ distance = float(distance) # convert string (from raw_input) to float
 distance_meter = distance * MI_TO_METER
 
 
+# calories
+#tot_cal = raw_input('Enter total : ')
+## calculate calories from heart rate
+
+# average heart rate
+hr_avg = 165
+#hr_avg = raw_input('Enter average heart rate [bpm]: ')
+hr_avg = int(hr_avg)
+
+# max heart rate
+hr_max = 178
+#hr_avg = raw_input('Enter average heart rate [bpm]: ')
+hr_avg = int(hr_avg)
+
+
+cal_tot = calorie_calc
+
 # concatenate file name and extension
 exten = '.tcx'
 fname = fname + exten
@@ -68,16 +93,15 @@ f.write('  <Activities>\n')
 f.write('    <Activity Sport="Biking">\n')
 f.write('      <Id>{0}T{1}Z</Id>\n'.format(st_date,st_time))
 f.write('      <Lap StartTime="{0}T{1}Z">\n'.format(st_date,st_time))
-#f.write('      <Lap StartTime="2015-02-25T22:33:51Z">\n')
-#print("\nFilename is: ",fname,'.tcx',sep='')
+
 f.write('        <TotalTimeSeconds>{0:.7f}</TotalTimeSeconds>\n'.format(duration_second))
 f.write('        <DistanceMeters>{0:.7f}</DistanceMeters>\n'.format(distance_meter))
 f.write('        <Calories>335</Calories>\n')
 f.write('        <AverageHeartRateBpm>\n')
-f.write('          <Value>154</Value>\n')
+f.write('          <Value>{0}</Value>\n'.format(hr_avg))
 f.write('        </AverageHeartRateBpm>\n')
 f.write('        <MaximumHeartRateBpm>\n')
-f.write('          <Value>169</Value>\n')
+f.write('          <Value>{0}</Value>\n'.format(hr_max))
 f.write('        </MaximumHeartRateBpm>\n')
 f.write('        <Intensity>Active</Intensity>\n')
 f.write('        <TriggerMethod>Manual</TriggerMethod>\n')
@@ -93,3 +117,7 @@ f.write('        <TriggerMethod>Manual</TriggerMethod>\n')
 
 
 f.close()
+
+
+
+

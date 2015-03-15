@@ -1,11 +1,16 @@
 from __future__ import print_function
 
 
-def calorie_calc():
-    
-    calories = 1240.
-    
-    
+def calorie_calc(hr_avg,duration_second):
+    #
+    AGE  = 22.  # [yr]
+    WGHT = 64.4 # [kg]
+    HGHT = 178. # [cm]
+    duration_minute = duration_second/60.
+    ELF = 1.725
+    #
+    calories = ELF*(66. + (13.7*WGHT) + (5*HGHT) - (6.8*AGE))
+    #
     return calories
 
 
@@ -75,7 +80,7 @@ hr_max = 178
 hr_avg = int(hr_avg)
 
 
-cal_tot = calorie_calc
+cal_tot = calorie_calc(hr_avg,duration_second)
 
 # concatenate file name and extension
 exten = '.tcx'
@@ -93,10 +98,9 @@ f.write('  <Activities>\n')
 f.write('    <Activity Sport="Biking">\n')
 f.write('      <Id>{0}T{1}Z</Id>\n'.format(st_date,st_time))
 f.write('      <Lap StartTime="{0}T{1}Z">\n'.format(st_date,st_time))
-
 f.write('        <TotalTimeSeconds>{0:.7f}</TotalTimeSeconds>\n'.format(duration_second))
 f.write('        <DistanceMeters>{0:.7f}</DistanceMeters>\n'.format(distance_meter))
-f.write('        <Calories>335</Calories>\n')
+f.write('        <Calories>{0}</Calories>\n'.format(cal_tot))
 f.write('        <AverageHeartRateBpm>\n')
 f.write('          <Value>{0}</Value>\n'.format(hr_avg))
 f.write('        </AverageHeartRateBpm>\n')

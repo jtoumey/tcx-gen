@@ -75,7 +75,7 @@ def increment_time(st_time):
 ## BEGIN MAIN PROGRAM
 
 #
-#...Constants
+#...Constants for conversion
 #
 MI_TO_METER = 1609.34
 HR_TO_SEC   = 3600.
@@ -89,14 +89,12 @@ fname = 't'
 #
 #...Query user for file specifics
 #
-
 st_time = '2023-02-17-21:45:12'
 #st_time = raw_input('Enter Start time using 24 hr time,\n [YYYY-MM-DD-hh:mm:ss]: ')
 #st_time = st_time.split('-')
 st_spl  = st_time.rfind('-')
 st_date = st_time[0:st_spl]
 st_time = st_time[st_spl+1:]
-
 
 # Workout Duration
 #duration = raw_input('Enter duration [hh:mm:ss]: ')
@@ -114,39 +112,35 @@ duration_second = duration_hour*HR_TO_SEC + duration_minute*MIN_TO_SEC + duratio
 #distance = raw_input('Enter distance [mi]      : ')
 distance = 5.
 distance = float(distance) # convert string (from raw_input) to float
+distance_meter = distance*MI_TO_METER # convert distance to meters
 
-
-##
-#
-#...Convert inputs to the format necessary for *.tcx files
-#
-##
-distance_meter = distance*MI_TO_METER
-
-
-# calories
+# Calories
 #tot_cal = raw_input('Enter total : ')
-## calculate calories from heart rate
 
+# calculate calories from heart rate
 # average heart rate
 hr_avg = 165
 #hr_avg = raw_input('Enter average heart rate [bpm]: ')
-hr_avg = int(hr_avg)
+hr_avg = int(hr_avg) # convert string (raw_input) to INT
 
 # max heart rate
 hr_max = 178
 #hr_avg = raw_input('Enter average heart rate [bpm]: ')
-hr_avg = int(hr_avg)
+hr_avg = int(hr_avg) # convert STR to INT
 
-
+# calculate calorie expenditure
 cal_tot = calorie_calc(hr_avg,duration_second)
+
+# Altitude
+altitude = 272. # [m] for test
+#altitude = raw_input('Enter average altitude [m]: ')
+altitude = int(altitude)
 
 # concatenate file name and extension
 exten = '.tcx'
 fname = fname + exten
 # open file to write
 f = open(fname,'w')
-
 
 #
 #...Write the header information
@@ -169,7 +163,9 @@ f.write('        </MaximumHeartRateBpm>\n')
 f.write('        <Intensity>Active</Intensity>\n')
 f.write('        <TriggerMethod>Manual</TriggerMethod>\n')
 
-## Begin track points
+
+# Begin track points
+
 # Initial track statement
 f.write('        <Track>\n')
 
@@ -180,7 +176,7 @@ for ii in range(0,int(duration_second)):
     # Write the information
     f.write('          <Trackpoint>\n')
     f.write('            <Time>{0}T{1}Z</Time>\n'.format(st_date,st_time))
-    f.write('            <AltitudeMeters>272.2000000</AltitudeMeters>\n')
+    f.write('            <AltitudeMeters>{0:.7f}</AltitudeMeters>\n'.format(altitude))
     f.write('            <HeartRateBpm>\n')
     f.write('              <Value>94</Value>\n')
     f.write('            </HeartRateBpm>\n')

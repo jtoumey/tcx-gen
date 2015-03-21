@@ -1,52 +1,85 @@
+"""
+                                                                          
+  Module:       tcxgen.py                                                 
+                                                                          
+  Programmer:   Julian M. Toumey                                          
+                Madison, WI                                               
+                                                                          
+  Date:         March 2015                                                
+                                                                          
+  Language:     Python                                                    
+                                                                          
+  Description:  This code generates *.tcx files according to 
+                specifications that you enter. The random noise portion
+                attempts to add noise to an average signal (such as HR,
+                power, etc.) so it looks realistic.
+                                                                          
+"""
+
+
 from __future__ import print_function
 from math import *
+
 ## Function for calculating calorie expenditure from duration and avg HR
 
 def calorie_calc(hr_avg,duration_second):
     #
-    AGE  = 22.  # [yr]
-    WGHT = 64.4 # [kg]
-    HGHT = 178. # [cm]
-    duration_minute = duration_second/60.
-    ELF = 1.725
+    # Subject-specific data
     #
-    calories = ((AGE*0.2017) + (WGHT*0.1988) + (hr_avg*0.6309) - 55.0969)*duration_minute/4.184
-    # daily
-    #calories = ELF*(66. + (13.7*WGHT) + (5*HGHT) - (6.8*AGE))
+    AGE    = 22.  # [yr]
+    WEIGHT = 64.4 # [kg]
+    #
+    # Convert workout duration to minutes
+    #
+    duration_minute = duration_second/60.
+    #
+    # Compute calories burned
+    #
+    calories = ((AGE*0.2017) + (WEIGHT*0.1988) + (hr_avg*0.6309) - 55.0969)*duration_minute/4.184
     #
     return int(floor(calories))
 
+## Function to increment the time that the code prints in the *.tcx file
+
 def increment_time(st_time):
-    
+    #
+    # Split the current time (CHAR) into an array based on `:' delimiter and convert to INT
+    #
     st_time = st_time.split(':')
     st_time = map(int, st_time)
-    
+    #
+    # Begin increment
+    #
+    # Seconds test
     if st_time[2] < 59:
         st_time[2] = st_time[2] + 1
-        
+    # move to next minute
     else:
         st_time[2] = 0
-        
+        # Minutes test
         if st_time[1] < 59:
             st_time[1] = st_time[1] + 1
+        # move to next hour
         else:
             st_time[1] = 0
             st_time[0] = st_time[0] + 1
-    
+    # map the new time (INT array) back to a string
     st_time = map(str, st_time)
-
+    # format the time with two characters per time division and a `0' in front if just one digit
     st_time[:] = [i.rjust(2,'0') for i in st_time]
+    # join the array, splitting each time division with `:'
     current_time = ':'.join(st_time)
-    
+    #
     return current_time
 
+## BEGIN MAIN PROGRAM
+
 #
-#... Constants
+#...Constants
 #
 MI_TO_METER = 1609.34
 HR_TO_SEC   = 3600.
 MIN_TO_SEC  = 60.
-
 # 
 #...Query user for filename
 #

@@ -98,7 +98,7 @@ st_time = st_time[st_spl+1:]
 
 # Workout Duration
 #duration = raw_input('Enter duration [hh:mm:ss]: ')
-duration = '00:01:12'
+duration = '01:01:12'
 duration = duration.split(':') # split the string 
 # Create individual components for each part of duration
 duration_hour   = float(duration[0])
@@ -163,7 +163,6 @@ f.write('        </MaximumHeartRateBpm>\n')
 f.write('        <Intensity>Active</Intensity>\n')
 f.write('        <TriggerMethod>Manual</TriggerMethod>\n')
 
-
 # Begin track points
 
 # Initial track statement
@@ -184,10 +183,26 @@ for ii in range(0,int(duration_second)):
 
 # End track point data
 f.write('        </Track>\n')
-
+f.write('        <Extensions>\n')
+f.write('          <FatCalories xmlns="http://www.garmin.com/xmlschemas/FatCalories/v1">\n')
+f.write('            <Value>0</Value>\n')
+f.write('          </FatCalories>\n')
+f.write('          <LX xmlns="http://www.garmin.com/xmlschemas/ActivityExtension/v2">\n')
+f.write('            <AvgSpeed>{0:.7f}</AvgSpeed>\n'.format(distance/duration_hour))
+f.write('          </LX>\n')
+f.write('        </Extensions>\n')
+f.write('      </Lap>\n')
+f.write('      <Creator xsi:type="Device_t">\n')
+f.write('        <Name>edge500</Name>\n')
+f.write('        <UnitId>3805951086</UnitId>\n')
+f.write('        <ProductID>1036</ProductID>\n')
+f.write('        <Version>\n')
+f.write('          <VersionMajor>3</VersionMajor>\n')
+f.write('          <VersionMinor>30</VersionMinor>\n')
+f.write('        </Version>\n')
+f.write('      </Creator>\n')
+f.write('    </Activity>\n')
+f.write('  </Activities>\n')
+f.write('</TrainingCenterDatabase>\n')
 
 f.close()
-
-
-
-
